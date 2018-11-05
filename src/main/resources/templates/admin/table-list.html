@@ -1,0 +1,39 @@
+<div class="col-12 p-0" xmlns:th="http://www.thymeleaf.org" th:fragment="table-list(array, url)">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="obj, iter : ${array}">
+            <tr>
+                <th scope="row" th:text="${iter.count}"></th>
+                <td th:text="${obj.name}"></td>
+                <td class="text-right"><a th:href="${url} + ${obj.id}"><i class="far fa-edit"></i></a></td>
+                <td class="text-right">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete-confirmation"><i class="far fa-trash-alt"></i></button>
+                    <div class="modal fade delete-confirmation" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <p>Desea borrar este elemento?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <form class="mb-0" method="get" th:action="${url} + 'delete/' + ${obj.id}">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>

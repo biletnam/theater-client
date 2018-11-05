@@ -1,0 +1,20 @@
+<footer class="container-fluid py-4" xmlns:th="http://www.thymeleaf.org" th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-9">
+                <h5>Carteleras</h5>
+                <ul class="list-inline cinema-footer-list pt-3">
+                    <th:block th:each="cinema : ${cinemas}">
+                        <li class="list-inline-item mr-4"><i class="fas fa-circle"></i><a class="ml-2" th:href="'/cinema/' + ${cinema.id}" th:text="${cinema.name}"></a></li>
+                    </th:block>
+                </ul>
+            </div>
+            <div class="col-3 text-center">
+                <span style="font-size: 6em; color: Tomato;">
+                    <a href="/" style="color: Tomato"><i class="fas fa-film"></i></a>
+                </span>
+                <p style="font-size: 12px" class="copy-right">© 2018 <strong>RicoMovies</strong>. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>

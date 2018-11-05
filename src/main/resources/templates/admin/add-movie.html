@@ -1,0 +1,106 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head('Administracion - Crear Pelicula')"></head>
+
+<body>
+
+<nav class="navbar navbar-light" th:replace="fragments/header-nav"></nav>
+<div class="container-fluid" th:replace="fragments/slide-show('admin')"></div>
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-9 px-0 pr-3">
+            <div class="containe bg-white">
+                <!-- Content Container -->
+                <div class="row p-4 movie-details">
+                    <div class="col-12">
+                        <h3 th:if="${section == 'create'}">Crear Pelicula</h3>
+                        <h3 th:if="${section == 'update'}">Actualizar Pelicula</h3>
+                        <hr/>
+                        <form enctype="multipart/form-data" th:id="addMovie" th:action="${section == 'create'} ? '/admin/create-movie' : '/admin/update-movie/' + ${movie.id}" method="post" th:object="${movie}">
+                            <div class="form-group">
+                                <label for="titleInput">Titulo</label>
+                                <input th:name="name" th:value="${movie.name}" type="text" class="form-control" id="titleInput" placeholder="Titulo">
+                            </div>
+                            <div class="form-group">
+                                <label for="imageInput">Imagen</label>
+                                <input th:value="${movie.thumb}" accept=".jpg, .jpeg, .png" name="thumb" type="file" class="form-control-file" id="imageInput">
+                            </div>
+                            <div class="row">
+                                <div class="col-3 form-group">
+                                    <label for="scoreInput">Calificación</label>
+                                    <input th:name="score" th:value="${movie.score}" type="number" class="form-control" id="scoreInput" placeholder="Calificación" min="0" max="5">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="genreSelect">Género</label>
+                                    <select th:name="genre" class="form-control" id="genreSelect" th:selected="${movie.genre.id}">
+                                        <th:block th:each="genre : ${genres}">
+                                            <option th:text="${genre.name}" th:value="${genre.id}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="ratedInput">Clasificación</label>
+                                    <input th:name="rated" th:value="${movie.rated}" type="number" class="form-control" id="ratedInput" placeholder="Clasificación" min="0" max="21">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="languageSelect">Idioma</label>
+                                    <select th:name="language" class="form-control" id="languageSelect" th:selected="${movie.language.id}">
+                                        <th:block th:each="language : ${languages}">
+                                            <option th:text="${language.name}" th:value="${language.id}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3 form-group">
+                                    <label for="directorInput">Director</label>
+                                    <input th:name="director" th:value="${movie.director}" type="text" class="form-control" id="directorInput" placeholder="Director">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="releaseDate">Fecha Estreno</label>
+                                    <input th:name="*{releaseDate}" class="form-control" type="date" value="2018-08-19" id="releaseDate">
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label for="actorsInput">Actores</label>
+                                    <input th:name="actors" th:value="${movie.actors}" type="text" class="form-control" id="actorsInput" placeholder="Actores">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="trailerInput">Trailer</label>
+                                <input th:name="trailer" th:value="${movie.trailer}" type="url" class="form-control" id="trailerInput" placeholder="Trailer">
+                            </div>
+                            <div class="form-group">
+                                <label for="synopsisTextArea">Sinopsis</label>
+                                <textarea th:name="synopsis" th:text="${movie.synopsis}"  class="form-control" id="synopsisTextArea" rows="5"></textarea>
+                            </div>
+                            <div class="form-group form-check pl-0">
+                                <label>Cateleras</label>
+                                <hr class="mt-0"/>
+                                <th:block th:each="cinema : ${cinemas}">
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input th:name="cinemas" class="form-check-input" type="checkbox" th:id="'cinema' + ${cinema.id}" th:value="${cinema.id}" th:text="${cinema.name}">
+                                        </label>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div class="row text-right">
+                                <div class="col-12">
+                                    <button type="submit" class="mt-2 px-2 mr-3 btn btn-primary">Guardar</button>
+                                    <a class="mt-2 px-2 btn btn-outline-secondary" href="/admin" role="button">Cerrar</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 bg-white right-pane" th:replace="fragments/right-panel('admin')"></div>
+    </div>
+</div>
+
+<footer class="container-fluid py-4" th:replace="fragments/footer"></footer>
+
+</body>
+</html>

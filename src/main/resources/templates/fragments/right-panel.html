@@ -1,0 +1,13 @@
+<div class="col-3 bg-white right-pane" xmlns:th="http://www.thymeleaf.org" th:fragment="right-panel(section)">
+    <h5 class="py-3 text-uppercase" th:text="${section == 'site'} ? 'Carteleras' : 'Menu'"></h5>
+    <ul class="cinema-right-pane-list pt-1 pb-3">
+        <th:block th:if="${section == 'site'}" th:each="cinema : ${cinemas}">
+            <li><a class="ml-2" th:href="'/cinema/' + ${cinema.id}" th:text="${cinema.name}"></a></li>
+        </th:block>
+        <th:block th:if="${section == 'admin'}">
+            <li><a class="ml-2" href="/admin">Peliculas</a></li>
+            <li><a class="ml-2" href="/admin/cinema">Salas de Cine</a></li>
+            <li><a class="ml-2" href="/admin/genre">Géneros</a></li>
+        </th:block>
+    </ul>
+</div>

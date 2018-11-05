@@ -1,0 +1,96 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:replace="fragments/head :: head(${movie.name})"></head>
+
+<body>
+
+<nav class="navbar navbar-light" th:replace="fragments/header-nav"></nav>
+<div class="container-fluid" th:replace="fragments/slide-show('site')"></div>
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-9 px-0 pr-3">
+            <div class="container px-0 bg-white">
+                <!-- Content Container -->
+                <div class="row movie-details">
+                    <div class="col-4 mt-4 ml-4 mb-4">
+                        <div class="card border-0">
+                            <img class="card-img-top" src="#" th:src="${movie.thumb} ? '/img/posts/' + ${movie.thumb} : '/img/movie-content-box.jpg'" th:alt="${movie.name}">
+                            <div class="pr-0 pl-0 mt-4 movie-trailer text-center">
+                                <button data-toggle="modal" data-target=".movie-trailer-modal" type="button" class="btn btn-secondary btn-lg btn-block"><i style="font-size: 30px" class="fab fa-youtube-square mr-2"></i>Trailer</button>
+                                <div th:if="${movie.trailer}" th:replace="fragments/modal-trailer(${movie.trailer})"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-7 p-4">
+                        <h3 class="mb-0" th:text="${movie.name}"></h3>
+                        <div class="row pl-0 pb-4 pl-3 mt-1">
+                            <i class="fas fa-star" th:if="${movie.score > 0}" th:each="i : ${#numbers.sequence(1, movie.score)}"></i>
+                            <i class="far fa-star" th:if="${movie.score < 5}" th:each="i : ${#numbers.sequence(movie.score, 4)}"></i>
+                        </div>
+                        <p>
+                            <strong>Genero: </strong>
+                            <span th:text="' ' + ${movie.genre.name}"></span>
+                        </p>
+                        <p>
+                            <strong>Clasificación: </strong>
+                            <span th:text="' +' + ${movie.rated}"></span>
+                        </p>
+                        <p>
+                            <strong>Estreno: </strong>
+                            <span th:text="' ' + ${movie.releaseDate}"></span>
+                        </p>
+                        <p>
+                            <strong>Idioma: </strong>
+                            <span th:text="' ' + ${movie.language.name}"></span>
+                        </p>
+                        <p>
+                            <strong>Director: </strong>
+                            <span th:text="' ' + ${movie.director}"></span>
+                        <p>
+                            <strong>Actores: </strong>
+                            <span th:text="' ' + ${movie.actors}"></span>
+                        </p>
+                        <p class="text-justify">
+                            <strong>Sinpsis: </strong>
+                            <span th:text="' ' + ${movie.synopsis}"></span>
+                        </p>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5 style="font-weight: bold">Exhibiendose en</h5>
+                                <ul class="list-inline cinema-footer-list pt-1">
+                                    <th:block th:each="cinema : ${movie.cinemas}">
+                                        <li class="list-inline-item mr-4"><a class="mr-2" th:href="'/cinema/' + ${cinema.id}" th:text="${cinema.name}"></a></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">-->
+                    <!--<form th:action="'/movie/comment/' + ${movie.id}" method="post">-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="synopsisTextArea">Comentario</label>-->
+                            <!--<input th:name="createdBy" type="hidden" sec:authentication="name">-->
+                            <!--<textarea th:name="details" class="form-control" id="synopsisTextArea" rows="5"></textarea>-->
+                        <!--</div>-->
+                        <!--<button type="submit" class="btn btn-primary">Save</button>-->
+                    <!--</form>-->
+                <!--</div>-->
+                <!--<div class="row movie-details">-->
+                    <!--<div class="col-12">-->
+                        <!--<th:block th:each="comment : ${movie.comments}">-->
+                            <!--<p th:text="${comment.details}"></p>-->
+                        <!--</th:block>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="col-3 bg-white right-pane" th:replace="fragments/right-panel('site')"></div>
+    </div>
+</div>
+
+<footer class="container-fluid py-4" th:replace="fragments/footer"></footer>
+
+</body>
+</html>

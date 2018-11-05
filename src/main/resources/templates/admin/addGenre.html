@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>RicoMovies - Admin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="/webjars/jquery/1.9.1/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css" />
+</head>
+
+<body>
+<nav class="navbar navbar-light bg-info">
+    <a class="navbar-brand text-white" href="/">RicoBot</a>
+</nav>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav" style="background: #eee">
+            <ul class="list-group nav nav-pills nav-stacked">
+                <li class="list-group-item active">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-3 pt-4">
+                    <h4>Genres</h4>
+                    <form th:action="@{/addGenre}" method="post">
+                        <div class="input-group mb-3">
+                            <input id="genreInput" name="name" type="text" class="form-control" placeholder="Genre Name">
+                            <div class="input-group-append">
+                                <button id="add-genre-btn" class="btn btn-outline-secondary" type="submit">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="/api/genres" method="post" content="application/json">
+                    </form>
+                    <ul id="genres-list">
+                        <th:block th:each="genre : ${genres}">
+                            <li th:text="${genre.name}"></li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid">
+    <p>Footer Text</p>
+</footer>
+
+</body>
+</html>
